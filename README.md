@@ -52,6 +52,7 @@ docker push 374120343751.dkr.ecr.sa-east-1.amazonaws.com/sample-nodejs-app:lates
 docker run -p 80:3000 sample-nodejs-app
 
 -- Criterio para estrutura do projeto em node js local
+
 // create a new directory
 mkdir app-nodejs
 
