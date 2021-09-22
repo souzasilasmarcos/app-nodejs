@@ -33,12 +33,19 @@ CMD [ "node", "server.js" ]
 -- Depois de configurado os parametros na raiz do projeto no Dockerfile, nosso app deve estar configurada seguindo estes requisitos:
 
 const express = require('express')
+
 const app = express()
+
 app.get('/', (req, res) => {
+
     res.send('Hello world from a Node.js app!')
+
 })
+
 app.listen(3000, () => {
+
     console.log('Server is up on 3000')
+
 })
 
 -- Agora com estrutura dos recursos no repo de dev vamos criar o build 
