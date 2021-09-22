@@ -54,18 +54,23 @@ docker run -p 80:3000 sample-nodejs-app
 -- Criterio para estrutura do projeto em node js local
 
 // create a new directory
+
 mkdir sample-nodejs-app
 
 // change to new directory
+
 cd sample-nodejs-app
 
 // Initialize npm
+
 npm init -y
 
 // install express
+
 npm install express
 
 // create an server.js file
+
 touch server.js
 
 ##### ESTRUTURA DO PROJETO
