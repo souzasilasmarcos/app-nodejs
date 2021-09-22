@@ -14,14 +14,20 @@ Aplicativo de amostra Implementando um aplicativo Node.js para Amazon Web Servic
 
 -- Neste repositorio foi necessario em primeiro step a subida da estrutura do node.
 
-dentro do repo local Dockerfile:
+-- Dentro do repo local Dockerfile:
 
 FROM node:6-alpine
+
 RUN mkdir -p /usr/src/app
+
 WORKDIR /usr/src/app
+
 COPY . .
+
 RUN npm install
+
 EXPOSE 3000
+
 CMD [ "node", "server.js" ]
 
 -- Depois de configurado os parametros na raiz do projeto no Dockerfile, nosso app deve estar configurada seguindo estes requisitos:
@@ -84,11 +90,17 @@ Novamente o Dockerfile é o projeto a partir do qual nossas imagens são constru
 E então as imagens se transformam em contêineres, nos quais executamos nossos aplicativos.
 
 FROM node:8-alpine
+
 RUN mkdir -p /usr/src/app
+
 WORKDIR /usr/src/app
+
 COPY . .
+
 RUN npm install
+
 EXPOSE 3000
+
 CMD [ "node", "server.js" ]
 
 Os contêineres do Docker podem fazer conexões com o mundo externo, porem o mundo externo não pode se conectar aos nossos contêineres. -p publica todas as portas expostas nas interfaces do host. 
