@@ -1,22 +1,57 @@
 # app-nodejs
 
-Sample app Deploying a Node.js application to Amazon Web Services using Docker.
+Aplicativo de amostra Implementando um aplicativo Node.js para Amazon Web Services usando Docker.
 
-Table of Contents
+Índice
 
-1. Prerequisites
-2. A quick primer on Docker and AWS
-3. What we’ll be deploying
-4. Creating a Dockerfile
-5. Building a docker image
-6. Running a docker container
-7. Creating the Registry (ECR) and uploading the app image to it
-8. Creating a new task definition
-9. Creating a cluster
-10. Creating a service to run it
+1 - Uma introdução rápida sobre Docker e AWS ja utilizando estrutura do projeto autoscaling-app
+2 - Criação de um Dockerfile
+3 - Construir uma imagem docker
+4 - Executando um contêiner docker
+5 - Criação do Registro (ECR) e upload da imagem do aplicativo
+6 - Criação de uma nova definição de tarefa
+7 - Criar um serviço para executá-lo
 
-#
+# Neste repositorio foi necessario em primeiro step a subida da estrutura do node.
 
+dentro do repo local Dockerfile:
+
+FROM node:6-alpine
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+COPY . .
+RUN npm install
+EXPOSE 3000
+CMD [ "node", "server.js" ]
+
+# Depois de configurado os parametros na raiz do projeto no Dockerfile, nosso app deve estar configurada seguindo estes requisitos:
+
+const express = require('express')
+const app = express()
+app.get('/', (req, res) => {
+    res.send('Hello world from a Node.js app!')
+})
+app.listen(3000, () => {
+    console.log('Server is up on 3000')
+})
+
+# Agora com estrutura dos recursos no repo de dev vamos criar o build 
+
+docker build -t sample-nodejs-app .
+
+# Realizar a subida da tag do projeto para nosso ECR
+
+docker tag sample-nodejs-app:latest 374120343751.dkr.ecr.sa-east-1.amazonaws.com/sample-nodejs-app:latest
+
+# Precisamos subir esta imagem no repositorio ECR na AWS, dessa forma nossa automaçao ira usar esta repo para instaciar a aplicaçao em ambiente de container ou mesmo em nodes EC2:
+
+docker push 374120343751.dkr.ecr.sa-east-1.amazonaws.com/sample-nodejs-app:latest
+
+# Por fim nossa autonaçao no projeto autoscaling-app podera instanciar nossa aplicaçao via docker:
+
+docker run -p 80:3000 sample-nodejs-app
+
+# Criterio para estrutura do projeto em node js local
 // create a new directory
 mkdir app-nodejs
 
@@ -46,7 +81,7 @@ Por último, mas não menos importante, a instrução CMD especifica o comando p
 
 O aplicativo criando um único arquivo chamado Dockerfile na base do diretório do nosso projeto.
 
-O Dockerfile é o projeto a partir do qual nossas imagens são construídas. 
+Novamente o Dockerfile é o projeto a partir do qual nossas imagens são construídas. 
 E então as imagens se transformam em contêineres, nos quais executamos nossos aplicativos.
 
 FROM node:8-alpine
