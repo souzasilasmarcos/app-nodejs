@@ -4,7 +4,7 @@ Aplicativo de amostra Implementando um aplicativo Node.js para Amazon Web Servic
 
 Índice
 
-1 - Uma introdução rápida sobre Docker e AWS ja utilizando estrutura do projeto autoscaling-app
+1 - Docker e AWS ja utilizando estrutura do projeto autoscaling-app
 2 - Criação de um Dockerfile
 3 - Construir uma imagem docker
 4 - Executando um contêiner docker
@@ -54,10 +54,10 @@ docker run -p 80:3000 sample-nodejs-app
 -- Criterio para estrutura do projeto em node js local
 
 // create a new directory
-mkdir app-nodejs
+mkdir sample-nodejs-app
 
 // change to new directory
-cd app-nodejs
+cd sample-nodejs-app
 
 // Initialize npm
 npm init -y
